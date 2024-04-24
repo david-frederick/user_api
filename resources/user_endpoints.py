@@ -32,10 +32,17 @@ class UserListEndpoints(MethodView):
 	@UserBlueprint.response(200, UserSchema(many=True))
 	def get(self):
 		sort = request.args.get('order_by') or 'username'
-		if sort in ('username', 'email', 'first_name', 'last_name'):
-			return sorted(users.values(), key=lambda x: x[sort].lower())
-		message = 'Unknown sorting request: Valid `order_by` entries are `username`, `email`, `first_name`, `last_name`'
-		abort(404, message=message)
+		if sort not in ('username', 'email', 'first_name', 'last_name'):
+			message = 'Unknown sorting request: Valid `order_by` entries are `username`, `email`, `first_name`, `last_name`'
+			abort(404, message=message)
+
+		order = request.args.get('order') or 'asc'
+		if order not in ('asc', 'desc'):
+			message = 'Unknown sorting request: Valid `order` entries are `asc`, `desc`'
+			abort(404, message=message)
+
+		return sorted(users.values(), key=lambda x: x[sort].lower(), reverse=(order == 'desc'))
+
 
 	@UserBlueprint.arguments(UserSchema)
 	@UserBlueprint.response(200, UserSchema)

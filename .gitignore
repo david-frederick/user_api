@@ -1,0 +1,6 @@
+tests/__pycache__
+resource/__pycache__
+user_api
+venv
+.idea
+.venv
