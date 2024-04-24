@@ -5,7 +5,7 @@ users = {
 	'test_user1': {
 		'username': 'test_user1',
 		'first_name': 'Test',
-		'last_name': 'Testerston',
+		'last_name': 'Testerson',
 		'email': 'test@testing.com'
 	},
 	'test_user2': {
