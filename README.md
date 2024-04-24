@@ -18,6 +18,10 @@ These parameters should be added onto the end of the URL using the typical forma
     - `email`
     - `first_name`
     - `last_name`
+- `order` allows the user to reverse the order in which users are listed.
+  - Available options:
+    - `asc` (default)
+    - `desc`
 
 ### Read a User
 
