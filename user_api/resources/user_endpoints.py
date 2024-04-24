@@ -33,7 +33,7 @@ class UserListEndpoints(MethodView):
 	def get(self):
 		sort = request.args.get('order_by') or 'username'
 		if sort in ('username', 'email', 'first_name', 'last_name'):
-			return sorted(users.values(), key=lambda x: x[sort])
+			return sorted(users.values(), key=lambda x: x[sort].lower())
 		message = 'Unknown sorting request: Valid `order_by` entries are `username`, `email`, `first_name`, `last_name`'
 		abort(404, message=message)
 
