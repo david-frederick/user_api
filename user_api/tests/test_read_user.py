@@ -3,11 +3,11 @@ from app import create_app
 
 
 def test_valid_username():
-	response = create_app().test_client().get('/users/test_user1')
+	response = create_app().test_client().get('/users/testuser1')
 	assert response.status_code == 200
 	body = json.loads(response.data.decode())
 	assert body == {
-		'username': 'test_user1',
+		'username': 'testuser1',
 		'email': 'test@testing.com',
 		'first_name': 'Test',
 		'last_name': 'Testerson'

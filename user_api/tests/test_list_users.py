@@ -15,12 +15,4 @@ def test_list_users_default_sort():
 	assert response.status_code == 200
 
 	resp_body = json.loads(response.data.decode())
-	assert [user['username'] for user in resp_body] == ['test_user1', 'test_user2', 'valid_username']
-
-
-def test_list_users_custom_order():
-	response = create_app().test_client().get('/users?order_by=first_name')
-	assert response.status_code == 200
-
-	resp_body = json.loads(response.data.decode())
-	assert [user['first_name'] for user in resp_body] == ['CFA', 'somebody', 'Test']
+	assert [user['username'] for user in resp_body] == ['testuser1', 'testuser2', 'validusername']

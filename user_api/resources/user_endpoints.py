@@ -31,16 +31,16 @@ class UserEndpoints(MethodView):
 class UserListEndpoints(MethodView):
 	@UserBlueprint.response(200, UserSchema(many=True))
 	def get(self):
-		try:
-			sort = request.args.get('order_by') or 'username'
-			if sort in ('username', 'email', 'first_name', 'last_name'):
-				return sorted(users.values(), key=lambda x: x[sort])
-			abort(404, message='Unknown parameter submitted. Please use `order_by` to sort your data')
-		except AttributeError:
-			abort(404, message='Users not accessible')
+		sort = request.args.get('order_by') or 'username'
+		if sort in ('username', 'email', 'first_name', 'last_name'):
+			return sorted(users.values(), key=lambda x: x[sort])
+		message = 'Unknown sorting request: Valid `order_by` entries are `username`, `email`, `first_name`, `last_name`'
+		abort(404, message=message)
 
 	@UserBlueprint.arguments(UserSchema)
 	@UserBlueprint.response(200, UserSchema)
 	def post(self, user_data: UserSchema):
+		if user_data['username'] in users.keys():
+			abort(409, message='Username already taken')
 		users[user_data['username']] = user_data
 		return user_data, 201
