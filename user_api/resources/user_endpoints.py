@@ -39,7 +39,6 @@ class UserListEndpoints(MethodView):
 		except AttributeError:
 			abort(404, message='Users not accessible')
 
-	# create
 	@UserBlueprint.arguments(UserSchema)
 	@UserBlueprint.response(200, UserSchema)
 	def post(self, user_data: UserSchema):
